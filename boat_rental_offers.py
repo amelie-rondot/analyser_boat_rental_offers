@@ -1,4 +1,5 @@
 import enum
+import re
 
 
 class BoatType(enum.Enum):
@@ -41,7 +42,13 @@ class BoatRentalOffer:
 
         :return: BoatType
         """
-        return "NUC"
+
+        rex_nuc = re.compile("^[0-9]{5,6}$")
+        rex_nup = re.compile("^[a-zA-Z]{3}[0-9]{5}$")
+        if rex_nuc.match(self.boat_immatriculation_number):
+            return "NUC"
+        elif rex_nup.match(self.boat_immatriculation_number):
+            return "NUP"
 
     def is_illegal(self):
         """
