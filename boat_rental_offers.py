@@ -47,8 +47,8 @@ class BoatRentalOffer:
         NUP "Navire à Usage Personnel") according to the `boat_immatriculation_number`.
 
         The French boats have two codified immatriculation numbers formats:
-        - either a series of 5 or 6 numbers, used for NUC boats, for example "104641"
-        - either a series of 3 letters followed by 5 numbers, used for NUP boats, for example "TLF70259"
+        - either a series of 5 or 6 numbers, used for NUC boats, for example "123456" or "12345"
+        - either a series of 3 letters followed by 5 numbers, used for NUP boats, for example "TLF12345"
 
         :return: BoatType
         """
