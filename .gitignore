@@ -1,2 +1,5 @@
 # Ignore pycharm local config
 .idea
+
+
+__pycache__/
