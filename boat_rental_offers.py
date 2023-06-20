@@ -76,13 +76,10 @@ class BoatRentalOffer:
 
         :return: bool
         """
-        if self.get_boat_type() == "NUP" and self.with_skipper:
+        if self.get_boat_type() == "NUP" and self.with_skipper or \
+                self.get_boat_type() == "NUC" and not self.with_skipper:
+            # Illegal offer
             return True
-        elif self.get_boat_type() == "NUP" and not self.with_skipper:
-            return False
-        # The boat is a NUC, and it is rented without a skipper -> illegal offer
-        elif self.get_boat_type() == "NUC" and not self.with_skipper:
-            return True
-        # The boat is a NUC, and it is rented with a skipper -> legal offer
-        elif self.get_boat_type() == "NUC" and self.with_skipper:
+        elif self.get_boat_type() == "NUP" and not self.with_skipper or \
+                self.get_boat_type() == "NUC" and self.with_skipper:
             return False
