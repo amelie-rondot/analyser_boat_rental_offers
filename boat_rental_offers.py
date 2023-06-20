@@ -59,6 +59,9 @@ class BoatRentalOffer:
             return "NUC"
         elif rex_nup.match(self.boat_immatriculation_number):
             return "NUP"
+        else:
+            raise InvalidImmatriculationNumberBoat("Le numéro d'immatriculation du bateau ne correspond ni "
+                                                   "à un numéro d'immatriculation de NUC ni de NUP.")
 
     def is_illegal(self):
         """
