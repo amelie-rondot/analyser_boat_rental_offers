@@ -47,3 +47,8 @@ def test_is_illegal():
     result = offer_nuc_illegal.is_illegal()
     assert result == expected
 
+    # Test case: the boat is a NUC, and it is rented with a skipper -> legal offer
+    offer_nup_legal = BoatRentalOffer("123456", with_skipper, url)
+    expected = False
+    result = offer_nup_legal.is_illegal()
+    assert result == expected
