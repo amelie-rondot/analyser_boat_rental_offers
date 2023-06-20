@@ -33,27 +33,30 @@ def test_get_type_boat():
 
 def test_is_illegal():
 
-    # Test case: the boat is a NUP, and it is rented with a skipper -> illegal offer
-    offer_nup_illegal = BoatRentalOffer(NUP_NUMBER, WITH_SKIPPER, URL)
-    expected = True
-    result = offer_nup_illegal.is_illegal()
-    assert result == expected
+    test_cases = [
+        {
+            # Illegal offer: the boat is a NUP, and it is rented with a skipper
+            "offer": BoatRentalOffer(NUP_NUMBER, WITH_SKIPPER, URL),
+            "expected": True,
+        },
+        {
+            # Legal offer: The boat is a NUP, and it is rented without a skipper
+            "offer": BoatRentalOffer(NUP_NUMBER, WITHOUT_SKIPPER, URL),
+            "expected": False,
+        },
+        {
+            # Illegal offer: The boat is a NUC, and it is rented without a skipper
+            "offer": BoatRentalOffer(NUC_NUMBER, WITHOUT_SKIPPER, URL),
+            "expected": True,
+        },
+        {
+            # Legal offer: The boat is a NUC, and it is rented with a skipper
+            "offer": BoatRentalOffer(NUC_NUMBER, WITH_SKIPPER, URL),
+            "expected": False,
+        },
+    ]
 
-    without_skipper = False
-    # Test case: the boat is a NUP, and it is rented without a skipper -> legal offer
-    offer_nup_legal = BoatRentalOffer(NUP_NUMBER, without_skipper, URL)
-    expected = False
-    result = offer_nup_legal.is_illegal()
-    assert result == expected
+    for tc in test_cases:
+        result = tc["offer"].is_illegal()
+        assert result == tc["expected"]
 
-    # Test case: the boat is a NUC, and it is rented without a skipper -> illegal offer
-    offer_nuc_illegal = BoatRentalOffer(NUC_NUMBER, without_skipper, URL)
-    expected = True
-    result = offer_nuc_illegal.is_illegal()
-    assert result == expected
-
-    # Test case: the boat is a NUC, and it is rented with a skipper -> legal offer
-    offer_nup_legal = BoatRentalOffer(NUC_NUMBER, WITH_SKIPPER, URL)
-    expected = False
-    result = offer_nup_legal.is_illegal()
-    assert result == expected
