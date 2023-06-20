@@ -67,7 +67,7 @@ class BoatRentalOffer:
         """
         Defines if the boat rental offer is illegal according to the type of the boat related to the offer
         and if the boat is rented with a skipper:
-        An offer is considered as legal in these cases:
+        An offer is considered as illegal in these cases:
         - the boat is a NUP, and it is rented with a skipper (most of the cases of illegal offers)
         - the boat is a NUC, and it is rented without a skipper
         At the contrary, an offer is considered as legal in these cases:
@@ -76,4 +76,7 @@ class BoatRentalOffer:
 
         :return: bool
         """
-        return True
+        if self.get_boat_type() == "NUP" and self.with_skipper:
+            return True
+        elif self.get_boat_type() == "NUP" and not self.with_skipper:
+            return False
