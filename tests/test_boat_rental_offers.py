@@ -16,9 +16,9 @@ def test_get_type_boat():
     ]
 
     for tc in test_cases:
-        result = tc["offer"].get_type_boat()
+        result = tc["offer"].get_boat_type()
         assert result == tc["expected"]
 
     offer = BoatRentalOffer("invalid_immatriculation_number_123", True, "dummy_url")
     with pytest.raises(InvalidImmatriculationNumberBoat):
-        offer.get_type_boat()
+        offer.get_boat_type()

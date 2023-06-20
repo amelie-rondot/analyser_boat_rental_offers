@@ -16,7 +16,7 @@ class InvalidImmatriculationNumberBoat(Exception):
     """
     An `InvalidImmatriculationNumberBoat` exception is used when the boat immatriculation
     number does not correspond to a French codified immatriculation numbers formats for boat:
-    see get_type_boat method for details.
+    see get_boat_type method for details.
     """
     def __init__(self, message):
         super().__init__(message)
@@ -41,9 +41,9 @@ class BoatRentalOffer:
         self.with_skipper = with_skipper
         self.offer_url = offer_url
 
-    def get_type_boat(self) -> BoatType:
+    def get_boat_type(self) -> BoatType:
         """
-        Get types of boat (NUC "Navire à Usage Commercial" in French or
+        Get the boat type (NUC "Navire à Usage Commercial" in French or
         NUP "Navire à Usage Personnel") according to the `boat_immatriculation_number`.
 
         The French boats have two codified immatriculation numbers formats:
