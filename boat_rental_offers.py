@@ -41,7 +41,7 @@ class BoatRentalOffer:
 
         :return: BoatType
         """
-        pass
+        return "NUC"
 
     def is_illegal(self):
         """
