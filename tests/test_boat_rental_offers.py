@@ -7,4 +7,9 @@ def test_get_type_boat():
     result = offer_nuc.get_type_boat()
     assert result == expected_boat_type
 
+    offer_nup = BoatRentalOffer("TLA123456", True, "dummy_url")
+    expected_boat_type = "NUP"
+    result = offer_nup.get_type_boat()
+    assert result == expected_boat_type
+
 
