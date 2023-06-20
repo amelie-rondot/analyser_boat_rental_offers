@@ -82,4 +82,4 @@ class BoatRentalOffer:
             return False
         # Test case: the boat is a NUC, and it is rented without a skipper -> illegal offer
         elif self.get_boat_type() == "NUC" and not self.with_skipper:
-            return False
+            return True
