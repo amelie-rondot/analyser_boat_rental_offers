@@ -10,6 +10,14 @@ NUP_NUMBER = "TLA12345"  # NUP boat immatriculation number
 INVALID_NUMBER = "invalid_number_123"  # invalid boat immatriculation number
 
 
+def test_boat_rental_offer_constructor():
+    # Test cases:
+    # - Check that self.boat_immatriculation_number is a str
+    # - Check that self.with_skipper is a boolean
+    # - Check that self.url is a str
+    pass
+
+
 def test_get_type_boat():
     test_cases = [
         {
