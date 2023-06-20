@@ -33,10 +33,17 @@ class BoatRentalOffer:
 
     def __init__(self, boat_immatriculation_number: str, with_skipper: bool, offer_url: str):
         """
+        Constructor
         :param boat_immatriculation_number: str: the immatriculation number of the boat related to the rental offer
         :param with_skipper: bool: set to True if the offer offers to rent the boat with a skipper, set to False if not
         :param offer_url: str: url of the offer
         """
+        # TODO: Questions:
+        #  - doit_on contraindre le numéro d'immatriculation du bateau
+        #  pour qu'il corresponde au format d'immatriculation attendu (NUP ou NUC) dans ce constructeur ??
+        #  - l'argument offer_url doit-il être requis dans le constructeur ?
+        #  - Y-a-t-il des valeurs par défaut à définir pour ces attributs de classe ?
+
         self.boat_immatriculation_number = boat_immatriculation_number
         self.with_skipper = with_skipper
         self.offer_url = offer_url
