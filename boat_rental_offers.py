@@ -76,4 +76,4 @@ class BoatRentalOffer:
 
         :return: bool
         """
-        pass
+        return False

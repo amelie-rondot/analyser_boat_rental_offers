@@ -22,3 +22,12 @@ def test_get_type_boat():
     offer = BoatRentalOffer("invalid_immatriculation_number_123", True, "dummy_url")
     with pytest.raises(InvalidImmatriculationNumberBoat):
         offer.get_boat_type()
+
+
+def test_is_illegal():
+    with_skipper = True
+    url = "dummy_url"
+    offer_nup_illegal = BoatRentalOffer("TLA12345", with_skipper, url)
+    expected = True
+    result = offer_nup_illegal.is_illegal()
+    assert result == expected
