@@ -12,6 +12,16 @@ class BoatType(enum.Enum):
     NUC = "NUC"
 
 
+class InvalidImmatriculationNumberBoat(Exception):
+    """
+    An `InvalidImmatriculationNumberBoat` exception is used when the boat immatriculation
+    number does not correspond to a French codified immatriculation numbers formats for boat:
+    see get_type_boat method for details.
+    """
+    def __init__(self, message):
+        super().__init__(message)
+
+
 class BoatRentalOffer:
     """
     A BoatRentalOffer is used to implements a boat rental offer.

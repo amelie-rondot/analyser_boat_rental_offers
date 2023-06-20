@@ -1,4 +1,6 @@
-from boat_rental_offers import BoatRentalOffer
+import pytest
+
+from boat_rental_offers import BoatRentalOffer, InvalidImmatriculationNumberBoat
 
 
 def test_get_type_boat():
@@ -12,4 +14,6 @@ def test_get_type_boat():
     result = offer_nup.get_type_boat()
     assert result == expected_boat_type
 
-
+    unvalid_immat_number_offer = BoatRentalOffer("invalid_immatriculation_number_123", True, "dummy_url")
+    with pytest.raises(InvalidImmatriculationNumberBoat):
+        unvalid_immat_number_offer.get_type_boat()
