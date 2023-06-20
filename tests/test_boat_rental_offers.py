@@ -31,3 +31,9 @@ def test_is_illegal():
     expected = True
     result = offer_nup_illegal.is_illegal()
     assert result == expected
+
+    without_skipper = False
+    offer_nup_legal = BoatRentalOffer("TLA12345", without_skipper, url)
+    expected = False
+    result = offer_nup_legal.is_illegal()
+    assert result == expected
