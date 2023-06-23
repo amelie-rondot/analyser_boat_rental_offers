@@ -1,8 +1,8 @@
 """
-This module uses a web scraper, using the Spider objetcs from scrapy package
-to get a list of boat rental internet offers url and theirs descriptions from
-boat rental internet site as
-[Click&Boat](https://www.clickandboat.com/), [SamBoat](https://www.samboat.fr/),...
+This module defines a web scraper, using the Spider objects from scrapy package,
+to get a list of boat rental internet offers urls from boat rental internet site such as
+[Click&Boat](https://www.clickandboat.com/),
+[SamBoat](https://www.samboat.fr/),...
 """
 from scrapy import Spider
 
