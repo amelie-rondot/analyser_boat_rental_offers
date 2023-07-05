@@ -1,10 +1,12 @@
 # Ignore pycharm local config
 .idea
 
+data/
 
 __pycache__/
 
 journal_dev.md
 
 tmp_images.json
-tmp_offers.json
+tmp_click_and_boat_offers.json
+tmp_sam_boat_offers.json
