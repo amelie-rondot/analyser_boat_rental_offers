@@ -2,7 +2,10 @@
 
 Pour lancer le web scraping des url d'offres de location :
 
-```scrapy runspider boat_rental_offers_web_scraper.py -o tmp_offers.json```
+```python boat_rental_offers_web_scraper.py```
+
+Cela enregistre les url des offres de location dans des fichiers json :
+`tmp_click_and_boat_offers.json` et `tmp_sam_boat_offers.json`
 
 
 Pour lancer le web scraping des urls des images d'une offre de location
