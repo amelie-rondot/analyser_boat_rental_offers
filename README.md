@@ -11,7 +11,11 @@ Cela enregistre les url des offres de location dans des fichiers json :
 Pour lancer le web scraping des urls des images d'une offre de location
 (nécessaire pour récupérer le numéro d'immatriculation du bateau) :
 
-```scrapy runspider boat_images_scraper.py -o tmp_images.json```
+```python boat_images_scraper.py```
+
+Cela enregistre les url des images de bateaux relatives à une offre de location issue 
+de samboat.com ou click_and_boat.com dans des fichiers json :
+`tmp_click_and_boat_images.json` et `tmp_sam_boat_images.json`
 
 Pour lancer la récupération du numéro d'immatriculation d'un bateau :
 
