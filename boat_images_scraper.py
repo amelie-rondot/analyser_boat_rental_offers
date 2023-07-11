@@ -10,29 +10,23 @@ get these images urls :
 - "https://static1.clickandboat.com/v1/p/D5W4eRNXhar51jzjl0AuSs75tLQtuYez.big.jpg"
 
 """
-from scrapy import Spider
+from scrapy import Request, Spider
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
-
-from utils import get_url_from_offers_file
 
 
 class ClickAndBoatOfferImagesSpider(Spider):
 
     name = "click_and_boat_images"
 
-    # url of a boat rental offer
-    path_file = "tmp_click_and_boat_offers.json"
-    start_urls = [
-        get_url_from_offers_file(path_file),
-        #f"https://www.clickandboat.com/location-bateau/marseille/semi-rigide/capelli-tempest600-w2bq5d",
-    ]
-
     custom_settings = {
         "FEEDS": {
             "tmp_click_and_boat_images.json": {"format": "json"},
         },
     }
+
+    def start_requests(self):
+        yield Request(f"{self.url}")
 
     def parse(self, response):
         """
@@ -53,20 +47,17 @@ class ClickAndBoatOfferImagesSpider(Spider):
 
 
 class SamBoatOfferImagesSpider(Spider):
-    name = "sam_boat_images"
 
-    # url of a boat rental offer
-    path_file = "tmp_sam_boat_offers.json"
-    start_urls = [
-        # get_url_from_offers_file(path_file),
-        "https://www.samboat.fr/location-bateau/marseille/bateau-a-moteur/45366?picked_from=list",
-    ]
+    name = "sam_boat_images"
 
     custom_settings = {
         "FEEDS": {
             "tmp_sam_boat_images.json": {"format": "json"},
         },
     }
+
+    def start_requests(self):
+        yield Request(f"{self.url}")
 
     def parse(self, response):
         """
@@ -108,9 +99,12 @@ class SamBoatOfferImagesSpider(Spider):
 
 
 if __name__ == "__main__":
+    from utils import get_url_from_offers_file
+
     settings = get_project_settings()
     process = CrawlerProcess(settings)
-
-    process.crawl(ClickAndBoatOfferImagesSpider)
-    process.crawl(SamBoatOfferImagesSpider)
+    cnb_offer_url = get_url_from_offers_file("tmp_click_and_boat_offers.json")[1]
+    process.crawl(ClickAndBoatOfferImagesSpider, url=cnb_offer_url['url'])
+    sb_offer_url = get_url_from_offers_file("tmp_sam_boat_offers.json")[1]
+    process.crawl(SamBoatOfferImagesSpider, url=sb_offer_url['url'])
     process.start()
