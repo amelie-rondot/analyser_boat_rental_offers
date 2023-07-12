@@ -23,6 +23,7 @@ class ClickAndBoatOfferImagesSpider(Spider):
         "FEEDS": {
             "tmp_click_and_boat_images.json": {"format": "json"},
         },
+        "REQUEST_FINGERPRINTER_IMPLEMENTATION": '2.7',
     }
 
     def start_requests(self):
@@ -54,6 +55,7 @@ class SamBoatOfferImagesSpider(Spider):
         "FEEDS": {
             "tmp_sam_boat_images.json": {"format": "json"},
         },
+        "REQUEST_FINGERPRINTER_IMPLEMENTATION": '2.7',
     }
 
     def start_requests(self):
