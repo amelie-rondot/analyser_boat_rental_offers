@@ -1,3 +1,9 @@
+### Présentation du projet
+
+Le but de ce projet est de lister les offres de location de bateaux et analyser si les bateaux 
+sont loués dans un cadre réglementaire.
+
+
 ### Develop
 
 Pour lancer le web scraping des url d'offres de location :
