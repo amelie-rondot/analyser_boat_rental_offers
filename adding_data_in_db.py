@@ -15,7 +15,7 @@ from scrapy.utils.project import get_project_settings
 from twisted.internet import reactor
 
 import utils
-from boat_images_scraper import ClickAndBoatOfferImagesSpider
+from boat_images_scraper import ClickAndBoatOfferImagesSpider, SamBoatOfferImagesSpider
 from boat_rental_offers_web_scraper import ClickAndBoatOfferSpider, SamBoatOfferSpider
 from utils import get_url_from_offers_file
 
@@ -46,47 +46,48 @@ def run_spider(spider_class_name: Spider.__name__, spider_settings: Settings, ur
 
 if __name__ == "__main__":
 
-    # Get url offers -> listed in tmp_click_and_boat_offers.json and tmp_sam_boat_offers.json files
-    settings = get_project_settings()
-    print("Get click_and_boat offers url and stock them into tmp_click_and_boat_offers.json file .....")
-    run_spider(ClickAndBoatOfferSpider, settings, '')
+    # # Remove tmp_*_offers.json content
+    # utils.remove_lines_from_json_file("tmp_click_and_boat_offers.json")
+    # utils.remove_lines_from_json_file("tmp_sam_boat_offers.json")
 
-    print("Get sam_boat offers url and stock them into tmp_sam_boat_offers.json file .....")
-    run_spider(SamBoatOfferSpider, settings, '')
+    settings = get_project_settings()
+    # # Get url offers -> listed in tmp_click_and_boat_offers.json and tmp_sam_boat_offers.json files
+    # print("Get click_and_boat offers url and stock them into tmp_click_and_boat_offers.json file .....")
+    # run_spider(ClickAndBoatOfferSpider, settings, '')
+    #
+    # print("Get sam_boat offers url and stock them into tmp_sam_boat_offers.json file .....")
+    # run_spider(SamBoatOfferSpider, settings, '')
 
     # For clickandboat (alias cnb)
     cnb_url_offers_list = get_url_from_offers_file("tmp_click_and_boat_offers.json")
 
+    # For samboat (alias sb)
+    sb_url_offers_list = get_url_from_offers_file("tmp_sam_boat_offers.json")
+
     offers_list = []
 
-    for offer_url in cnb_url_offers_list:
+    for offer_url in sb_url_offers_list:
+        # Remove tmp_*_images.json content
+        utils.remove_lines_from_json_file("tmp_click_n_boat_images.json")
+        utils.remove_lines_from_json_file("tmp_sam_boat_images.json")
+
         # Get images url for this offer
         print(f"\nFor the offer {offer_url['url']}, get the boat images urls and stock them "
-              "into tmp_click_and_boat_images.json file .....")
-        run_spider(ClickAndBoatOfferImagesSpider, settings, offer_url['url'])
+              "into tmp_sam_boat_images.json file .....")
+        run_spider(SamBoatOfferImagesSpider, settings, offer_url['url'])
 
-        images_path_file = "tmp_click_and_boat_images.json"
+        images_path_file = "tmp_sam_boat_images.json"
         images_urls = utils.get_urls_images_from_images_file(images_path_file)
 
         # Treat images to check if boat is nup or not
         nup_boat = utils.check_boat_nup_immatriculation_number(images_urls)
 
-        offers_list.append({"offer_url": offer_url, "NUP": nup_boat})
-
-        # TODO: fix adding new objects bug in json file to have a correct json format
-        # Erase tmp_*_images.json content
-        utils.remove_lines_from_json_file("tmp_click_and_boat_images.json")
+        offers_list.append({"offer_url": offer_url['url'], "NUP_identifie_par_OCR": nup_boat})
 
     print(offers_list)
 
     # TODO: find a solution to save data in db, at first db could be a csv or json file
     # Save a sample of some offers in a json file for the moment
-    with open('data.json', 'w') as f:
-        json.dump(offers_list, f, indent=4)
-
-    utils.remove_lines_from_json_file("tmp_click_and_boat_offers.json")
-    utils.remove_lines_from_json_file("tmp_sam_boat_offers.json")
-
-
-
-
+    for item in offers_list:
+        with open('offers.json', 'w') as f:
+            json.dump(offers_list, f, indent=4)
