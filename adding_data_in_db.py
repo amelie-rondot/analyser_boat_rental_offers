@@ -68,7 +68,7 @@ if __name__ == "__main__":
 
     for offer_url in sb_url_offers_list:
         # Remove tmp_*_images.json content
-        utils.remove_lines_from_json_file("tmp_click_n_boat_images.json")
+        utils.remove_lines_from_json_file("tmp_click_and_boat_images.json")
         utils.remove_lines_from_json_file("tmp_sam_boat_images.json")
 
         # Get images url for this offer
