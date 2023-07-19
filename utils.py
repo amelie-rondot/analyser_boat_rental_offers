@@ -2,6 +2,7 @@
 This module defines utils functions used in this project.
 """
 import json
+import re
 
 import cv2
 import easyocr
@@ -47,30 +48,43 @@ def get_urls_images_from_images_file(path_file_images: str) -> [str]:
     return images_urls_list
 
 
-def get_boat_immatriculation_number(images_url_list: [str]):
+def check_boat_nup_immatriculation_number(images_url_list: [str]) -> bool:
     """
-    From a list of boat images urls, extract the boat immatriculation number with OCR technology.
+    From a list of boat images urls, read textual information present in images with OCR technology.
+    From this read information, return True if one of the textual information matches with N.U.P format
+    (ie a series of 3 letters followed by 5 numbers, used for NUP boats, for example "TLF12345") else False
     :param images_url_list: [str] list of boat images urls
+    :return: bool
     """
-    print(f"cuda available = {torch.cuda.is_available()}")
+    nup_format = "[a-zA-Z]{2}\s[a-zA-Z]\s?[0-9]{5,}"
+    nup = False
+
     for image_path in images_url_list:
         # easyocr method
-        reader = easyocr.Reader(['en'],  gpu=False)
+        reader = easyocr.Reader(['en'], gpu=False)
         texts_with_easyocr = reader.readtext(image_path, detail=0, paragraph=True)
-        print(set(texts_with_easyocr))
-        print("\n")
+        for text in texts_with_easyocr:
+            if re.match(nup_format, text):
+                nup = True
+                break
+        if nup:
+            break
+    return nup
 
-        # pytesseract method
-        # Work with local image -> needs t
-        # image_path = "./data/boat_img1_AJB798544.jpg"
-        # img_cv = cv2.imread(image_path)
-        # text_with_pytesseract = pytesseract.pytesseract.image_to_string(img_cv, config='--psm 12')
-        # # config='--psm 12' shows better results
-        # print(text_with_pytesseract)
+
+def remove_lines_from_json_file(json_file_path: str):
+    with open(json_file_path, 'r+') as fp:
+        fp.seek(0)
+        fp.truncate()
 
 
 if __name__ == "__main__":
-    path_file_images = "tmp_sam_boat_offers.json"
-    # path_file_images = "tmp_click_and_boat_offers.json"
-    images_url_list = get_urls_images_from_images_file(path_file_images)
-    get_boat_immatriculation_number(images_url_list)
+    # path_file_images = "tmp_sam_boat_images.json"
+    # # path_file_images = "tmp_click_and_boat_images.json"
+    # images_url_list = get_urls_images_from_images_file(path_file_images)
+    # check_boat_nup_immatriculation_number(images_url_list)
+
+    remove_lines_from_json_file("tmp_click_and_boat_offers.json")
+    remove_lines_from_json_file("tmp_sam_boat_offers.json")
+    remove_lines_from_json_file("tmp_click_and_boat_images.json")
+    remove_lines_from_json_file("tmp_sam_boat_images.json")
